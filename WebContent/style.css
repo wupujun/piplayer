@@ -1,0 +1,77 @@
+@CHARSET "GB18030";
+
+<style type="text/css">
+
+body { margin: 0; padding: 0; font-size:12px; } #layout{ background-color: #FFFFFF; border: 0; width: 100%; margin: 0 auto; }
+.list{ margin: 0px 10px 20px; text-align: left; }
+.list ul{ list-style-style: none; margin: 0px; padding: 0px; }
+.list li{ list-style-image: url(img/music.png);background: url(attachments/month_0612/j20061214102450.gif) repeat-x bottom; /*列表底部的虚线*/ width: 100%; }
+.list li a{ color: #777777; display: block; padding: 0px 0px 4px 15px; } 
+.list li span{ /*使span元素浮动到右面*/ text-align: left;/*日期右对齐*/ }
+.list li a:hover{ color: #336699;  } 
+
+</style>
+
+
+<style type="text/css">
+/* 全局CSS*/
+*{margin:0px; padding:0px;}
+a{ text-decoration:none; outline:none;}
+a:hover{text-decoration:underline;}
+ 
+/* 实例CSS */
+html{ _background:url(about:blank);} /*阻止闪动 in IE6 , 把空文件换成about:blank , 减少请求*/
+body{ font-size:12px; font-family:Arial,Tahoma,sans-serif; color:#EEEEEE; text-align:center; /*background:#E2E2E2;*/}
+
+#topTool{
+
+    width:100%; height:40px; line-height:40px;
+    margin:20px auto 20px auto; 
+    /*padding:30px 50px;*/
+    /*background:#101010; border-bottom:2px solid #409F89;*/
+    /*position:fixed; top:-80px; left:0;
+    _position:absolute; _top:0;*/
+}
+ 
+#bottomToolbar{
+    width:100%; height:40px; line-height:40px;
+    background:#101010; border-top:2px solid #409F89;
+    position:fixed; bottom:0; left:0;
+    _position:absolute; _top:expression(documentElement.scrollTop+documentElement.clientHeight-this.offsetHeight);
+    /*
+        document.body.scrollTop 网页滚动的距离
+        document.body.clientHeight 网页可见区域高
+        this.offsetHeight 当前元素的高度
+    */
+}
+#bottomToolbar a{ color:#FFF;}
+ 
+#header{
+    width:100%; height:60px; line-height:60px;
+    background:#101010; border-top:2px solid #409F89;
+}
+ 
+#content{
+    width:80%; /*height:1000px;*/ line-height:18px; text-align:center;
+    margin:20px auto 40px auto; 
+    /*padding:30px 50px;*/
+    /*background:#FFF url(images/scaleplate.png) no-repeat; border:1px solid #CCC;*/
+}
+#leftpanel {
+width:300px; /*height:1000px;*/ line-height:18px; text-align:center; float: left;
+    /*margin:40px auto 80px auto; padding:30px 50px;*/
+    /*background:blue; border:1px solid #CCC;*/	
+}
+
+#rightpanel {
+width:800; height:1000px; line-height:18px; text-align:center; margin-left: 320px; color: blue;
+    /*margin:40px auto 80px auto; padding:30px 50px;
+    background:green; border:1px solid #CCC;*/	
+}
+
+#lrcBox {
+ line-height:18px; text-align:center;; color: blue;
+   /* margin:40px auto 80px auto; padding:30px 50px;*/
+    /*background:green; border:1px solid #CCC;*/	
+}
+</style>
