@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+
+<html>
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Search MP3 file</title>
+
+<link href="style.css" rel="stylesheet" type="text/css">
+<script src="js/jquery-1.10.2.js" type="text/javascript">
+</script>
+
+<script charset=utf-8 src="js/main.js" type="text/javascript" ></script>
+<script charset=utf-8 src="js/wait.js" type="text/javascript"></script>
+
+
+</head>
+<body>
+
+<div id="header">
+
+
+<span>搜索:</span> <input name="keyword" id=keyword value=""></input>
+<button id="search_button">提交</button> <img id="search_wait"  style="vertical-align: middle;" width=28 height=28 src="img/wait.gif">
+</div>
+ 
+<div id="topTool"> 
+
+<img alt="" width=24 height=24 src="img/next.gif" onclick="javascript:playnext()">
+<img alt="" width=24 height=24 src="img/last.gif" onclick="javascript:playprev()">
+<img alt="" width=24 height=24 src="img/pause.gif" onclick="javascript:sendAction('stop')">
+<img alt="" width=24 height=24 src="img/dec.gif" onclick="javascript:sendAction('dec')">
+<img alt="" width=24 height=24 src="img/inc.gif" onclick="javascript:sendAction('inc')">
+
+</div>
+
+<div id="content">
+    
+<div id="leftpanel"> 
+<ul class="list">
+</ul> 
+</div> 
+
+<div id="rightpanel">
+
+<div>歌曲：<span id="songName"> </span>
+</div>
+
+<div id="album">
+专辑： <span id="albumName"> </span>
+</div>
+
+<canvas id="albumImg" width="120" height="120">
+
+</canvas>
+<div >
+歌词：<a id="lrcLink" href="">下载 </a>
+</div>
+<div align='left' id="lrcBox">
+
+</div>
+
+</div>
+
+</div>
+
+<div id="bottomToolbar"> 
+Powered by RaspBerry
+
+</div>
+
+</body>
+

@@ -2,6 +2,8 @@ package Utils;
 
 
 import grep.API.ExecResult;
+import grep.API.SongItem;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,6 +16,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.google.gson.Gson;
@@ -84,6 +87,11 @@ class OutputHandler extends Thread {
 		            break;
 		        }
 		        logger.Log(answer);
+		        if (answer.startsWith("EOF code:")) {
+		        	logger.Log("播放结束,开始下一曲");
+		        	Looper.playNext();
+		        	
+		        }
 		    }
 		}
 		catch (IOException e) {
@@ -113,7 +121,61 @@ class startListenThread extends Thread {
 
 }
 
+
+class Looper {
+
+	/**
+	 * @param args
+	 */
+
+	
+	
+	 static private ArrayList<SongItem> songList=null;
+	 static private int index=-1;
+	
+	 static public int locateSongbyName(String name) {
+		 
+		 if (songList==null) return -1;
+		 
+		 for(int i=0;i<songList.size();i++) {
+			 if (songList.get(i).url.equals(name) ) {
+				 index=i;
+				 logger.Log("开始播放第"+i+"个歌曲");
+				 break;
+			 }
+		 }
+		 
+		 return index;
+	 }
+	 static public int getCurrentIndex() { return index;}
+	
+	
+	 public static void setSongList( ArrayList<SongItem> list) { songList=list;}
+	 public static void playNext() {
+		
+		if (songList==null) return;
+		
+		if (index<0) {
+			index=0;
+		}
+		else if(index <songList.size() -1 ) {
+			index++;
+		}
+		
+		if (index>=0 && index< songList.size())
+			Player.playFile(songList.get(index).url);
+		else 
+			logger.Log("无效索引：" + index);
+	}
+
+}
+
 public class Player {
+	
+	
+
+	
+	
 	static private PrintStream playIn=null;
 	
 	
@@ -132,6 +194,11 @@ public class Player {
 		ret.setMsg("Pause playing");
 		return ret.toJason();
 		
+	}
+
+	public static void setSongList( ArrayList<SongItem> list) { 
+		
+		Looper.setSongList(list);
 	}
 	
 	public static String increase() {
@@ -179,7 +246,10 @@ public class Player {
 		
 		if (playIn==null) { 
 			startListen();
+			
 		}
+		
+		Looper.locateSongbyName(filename);
 		
 		playIn.print("loadfile "+filename);
 		playIn.print("\n");
@@ -208,7 +278,7 @@ public class Player {
 			PipedInputStream  readFrom = new PipedInputStream(256*1024);
 			PipedOutputStream writeTo = new PipedOutputStream(readFrom);
 			BufferedReader mplayerOutErr = new BufferedReader(new InputStreamReader(readFrom));
-			Process mplayerProcess = Runtime.getRuntime().exec("mplayer -quiet -slave -idle");//-quiet -idle -slave  
+			Process mplayerProcess = Runtime.getRuntime().exec("mplayer -quiet -slave -idle -msglevel statusline=6 -msglevel global=6");//-quiet -idle -slave  
 						
 			new LineRedirecter(mplayerProcess.getInputStream(), writeTo).start();
 			new LineRedirecter(mplayerProcess.getErrorStream(), writeTo).start();
@@ -217,9 +287,11 @@ public class Player {
 //		 the standard input of MPlayer
 			PrintStream mplayerIn = new PrintStream(mplayerProcess.getOutputStream());
 			playIn=mplayerIn;
-			String readLine=null;			
+			String readLine=null;
+			Scanner in=new Scanner(System.in);
+			
 			do {
-				Scanner in=new Scanner(System.in);
+				
 				readLine = in.nextLine(); 
 				logger.Log("Get input: " + readLine);
 				
@@ -320,5 +392,8 @@ public class Player {
 		}
 	}
 }
+
+
+
 
 

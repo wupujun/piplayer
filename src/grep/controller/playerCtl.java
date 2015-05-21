@@ -2,6 +2,7 @@ package grep.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -41,8 +42,36 @@ class Forwarder {
 			}
 			else if (action.equals("getSongInfo")) {
 				String id=request.getParameter("id");
+				
 				Act = new GetSongItemAction(id);
 			}
+			else if (action.equals("loadSongList")) {
+				String id=request.getParameter("keyword");
+				try {
+					id=new String(id.getBytes("iso-8859-1"),"utf-8");
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+				Act = new GetSongListAction(id);
+			}
+			else if (action.equals("playTTS")) {
+				String msg=request.getParameter("msg");
+				try {
+					msg=new String(msg.getBytes("iso-8859-1"),"utf-8");
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 				
+				Act = new playTTSAction(msg);
+			}
+			else if (action.equals("trackSongChange")) {
+				 				
+				Act = new trackSongChange();
+			}
+
+
+			
 			
 			
 		}

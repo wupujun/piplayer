@@ -14,10 +14,20 @@ function refreshSongInfo(songItem) {
 	
 	songName.innerHTML= obj.songName;
 	albumName.innerHTML = obj.albumName;
-	albumImg.setAttribute("src", obj.albumImgURL);
+	//albumImg.setAttribute("src", obj.albumImgURL);
 	lrcLink.setAttribute("href", obj.lrcURL);
 	lrcLink.innerHTML = obj.lrcURL;
 	lrcBox.innerText = obj.lrcText;
+	
+	
+	var view = document.getElementById("albumImg");
+	var ctx= view.getContext("2d");
+
+	img = new Image();
+	img.onload = function() {
+	    ctx.drawImage(img, 0, 0, 120, 120, 0, 0, 120, 120);
+	}
+	img.src = obj.albumImgURL;
 	//obj.songName;
 	/*
 	var lrcReq=new XMLHttpRequest();

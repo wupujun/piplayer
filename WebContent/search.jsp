@@ -26,6 +26,8 @@
 %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+
 <html>
 <head>
 
@@ -107,9 +109,9 @@ String lrcLink= oneItem.lrcText;
 专辑： <span id="albumName"> <%=album %> </span>
 </div>
 
-<div>
-<img id="albumImg" src="<%=picURL%>">
-</div>
+<canvas id="albumImg" width="120" height="120">
+
+</canvas>
 <div >
 歌词：<a id="lrcLink" href="http://ting.baidu.com<%=lrcLink %>">下载 </a>
 </div>
